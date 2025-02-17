@@ -1,13 +1,13 @@
-import babel from "rollup-plugin-babel";
-import commonjs from "rollup-plugin-commonjs";
-import { eslint } from "rollup-plugin-eslint";
+import {babel} from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import eslint from '@rollup/plugin-eslint';
 import livereload from "rollup-plugin-livereload";
-import image from "rollup-plugin-img";
+import image from "@rollup/plugin-image";
 import omit from "object.omit";
 import path from "path";
-import postcss from "rollup-plugin-postcss";
-import replace from "rollup-plugin-replace";
-import resolve from "rollup-plugin-node-resolve";
+import postcss from 'rollup-plugin-postcss';
+import replace from '@rollup/plugin-replace';
+import resolve from '@rollup/plugin-node-resolve';
 import serve from "rollup-plugin-serve";
 
 var pkg = require("./package.json");
@@ -18,20 +18,20 @@ const plugins = [
     limit: 10000
   }),
   postcss({
-    extensions: [".css", ".scss"],
-    extract: "dev/script/style.css",
+    use: ['sass'],
+    extensions: [".scss", ".css"],
+    extract: "style.css",
     minimize: true,
     modules: {
       // customize the name of the css classes that are created
       generateScopedName: "[local]___[hash:base64:5]"
     },
-    sourceMap: "inline" // true, "inline" or false
+    autoModules: false,
+    sourceMap: "inline", // true, "inline" or false
   }),
   resolve({
     browser: true,
-    customResolveOptions: {
-      moduleDirectory: "node_modules"
-    },
+    moduleDirectories: ['node_modules'],
     extensions: [".js", ".jsx"],
     jsnext: true,
     main: true,
@@ -41,26 +41,13 @@ const plugins = [
   commonjs({
     include: ["node_modules/**"],
     exclude: ["node_modules/process-es6/**"],
-    namedExports: {
-      "node_modules/react/index.js": [
-        "Children",
-        "Component",
-        "Fragment",
-        "PureComponent",
-        "createElement",
-        "lazy",
-        "useState",
-        "Suspense"
-      ],
-      "node_modules/react-dom/index.js": ["render"],
-      "node_modules/react-is/index.js": ["isValidElementType"]
-    }
   }),
   eslint({
     exclude: ["**/*.scss", "**/*.css", "node_modules/**"]
   }),
   babel({
-    exclude: ["node_modules/**", "__tests__/**"]
+    exclude: ["node_modules/**", "__tests__/**"],
+    babelHelpers: 'bundled',
   }),
 ];
 
@@ -82,11 +69,15 @@ export default {
   input: "src/app.js",
   cache: cache,
   output: {
-    file: "dev/script/index.umd.js",
-    format: "umd",
+    file: "dev/script/index.iife.js",
+    format: "iife",
     name: "pureReactCarousel",
     sourcemap: true,
-    sourcemapFile: path.resolve("dev/main.umd.js")
+    sourcemapFile: path.resolve("dev/main.iife.js"),
+    globals: {
+      react: "React",
+      'react-dom/client': "ReactDOM",
+    }
   },
   // exclude peerDependencies from our bundle, except for react, react-dom, prop-types when dev'ing
   external: Object.keys(omit(pkg.peerDependencies, ["react", "react-dom"])),

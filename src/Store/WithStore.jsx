@@ -43,7 +43,10 @@ export default function WithStore(
     }
 
     render() {
-      const props = deepMerge(this.state, this.props);
+      const props = {
+        ...deepMerge(this.state, {...this.props,children: null}),
+        children: this.props.children,
+      };
 
       return (
         <WrappedComponent

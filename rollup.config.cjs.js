@@ -1,11 +1,11 @@
-import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
-import { eslint } from 'rollup-plugin-eslint';
+import {babel} from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import eslint from '@rollup/plugin-eslint';
 import path from 'path';
 import postcss from 'rollup-plugin-postcss';
-import replace from 'rollup-plugin-replace';
-import resolve from 'rollup-plugin-node-resolve';
-import { uglify } from 'rollup-plugin-uglify';
+import replace from '@rollup/plugin-replace';
+import resolve from '@rollup/plugin-node-resolve';
+import terser from '@rollup/plugin-terser';
 
 var pkg = require('./package.json');
 var cache;
@@ -24,20 +24,20 @@ export default {
   external: Object.keys(pkg.peerDependencies),
   plugins: [
     postcss({
-      extensions: ['.css', '.scss'],
-      extract: 'dist/react-carousel.cjs.css',
+      use: ['sass'],
+      extensions: [".scss", ".css"],
+      extract: "react-carousel.cjs.css",
       minimize: true,
       modules: {
         // customize the name of the css classes that are created
-        generateScopedName: '[local]___[hash:base64:5]',
+        generateScopedName: "[local]___[hash:base64:5]"
       },
-      sourceMap: true,
+      autoModules: false,
+      sourceMap: true, // true, "inline" or false
     }),
     resolve({
       browser: true,
-      customResolveOptions: {
-        moduleDirectory: 'node_modules'
-      },
+      moduleDirectories: ['node_modules'],
       extensions: ['.js', '.jsx'],
       jsnext: true,
       main: true,
@@ -56,11 +56,12 @@ export default {
       exclude: [
         'node_modules/**'
       ],
+      babelHelpers: 'bundled',
     }),
     replace({
       include: 'src/**',
       ENV: JSON.stringify(process.env.NODE_ENV || 'production')
     }),
-    (process.env.NODE_ENV === 'production' && uglify())
+    (process.env.NODE_ENV === 'production' && terser())
   ],
 }
