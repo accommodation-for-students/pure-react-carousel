@@ -1,6 +1,6 @@
 {
-  "name": "pure-react-carousel",
-  "version": "1.32.0",
+  "name": "@afs/pure-react-carousel",
+  "version": "1.0.0",
   "description": "A highly impartial suite of React components that can be assembled by the consumer to create a responsive and aria compliant carousel with almost no limits on DOM structure or CSS styles.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
@@ -36,19 +36,24 @@
     "semantic-release": "semantic-release",
     "predeploy": "rimraf dev/script && NODE_ENV=development rollup -c rollup.config.dev.js",
     "deploy": "gh-pages -d dev",
-    "true-level": "rm -rf ./node_modules ./.babel-cache; npm install"
+    "true-level": "rm -rf ./node_modules ./.babel-cache; npm install",
+    "version": "npm run build",
+    "release": "np --no-2fa"
   },
   "typings": "typings/index.d.ts",
+  "publishConfig": {
+    "access": "restricted"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/express-labs/pure-react-carousel.git"
+    "url": "https://github.com/accommodation-for-students/pure-react-carousel"
   },
   "author": "Matthew Toledo",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/express-labs/pure-react-carousel"
   },
-  "homepage": "https://github.com/express-labs/pure-react-carousel#readme",
+  "homepage": "https://github.com/accommodation-for-students/pure-react-carousel#readme",
   "devDependencies": {
     "@babel/core": "^7.26.9",
     "@babel/eslint-parser": "^7.26.8",
@@ -58,6 +63,7 @@
     "@babel/plugin-transform-runtime": "^7.26.9",
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
+    "@babel/runtime": "^7.5.5",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-eslint": "^9.0.5",
@@ -83,6 +89,7 @@
     "gh-pages": "^2.0.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
+    "np": "^10.2.0",
     "object.omit": "^3.0.0",
     "raf": "^3.4.1",
     "react": "^19.0.0",
@@ -105,14 +112,13 @@
   },
   "peerDependencies": {
     "react": "15.x || 16.x || 17.x || 18.x || 19.x",
-    "react-dom": "15.x || 16.x || 17.x || 18.x || 19.x"
+    "react-dom": "15.x || 16.x || 17.x || 18.x || 19.x",
+    "prop-types": "^15.6.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.5.5",
     "deep-freeze": "0.0.1",
     "deepmerge": "^4.3.1",
-    "equals": "^1.0.5",
-    "prop-types": "^15.6.2"
+    "equals": "^1.0.5"
   },
   "jest": {
     "moduleNameMapper": {

@@ -80,6 +80,6 @@ export default {
     }
   },
   // exclude peerDependencies from our bundle, except for react, react-dom, prop-types when dev'ing
-  external: Object.keys(omit(pkg.peerDependencies, ["react", "react-dom"])),
+  external: Object.keys(omit(pkg.peerDependencies, ["react", "react-dom", "prop-types"])),
   plugins
 };
