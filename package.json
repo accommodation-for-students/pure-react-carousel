@@ -6,8 +6,7 @@
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "files": [
-    "dist/**/*",
-    "typings/**/*"
+    "*"
   ],
   "keywords": [
     "react",
