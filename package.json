@@ -38,7 +38,7 @@
     "deploy": "gh-pages -d dev",
     "true-level": "rm -rf ./node_modules ./.babel-cache; npm install",
     "version": "npm run build",
-    "release": "np --no-2fa"
+    "release": "np --no-2fa --no-tests"
   },
   "typings": "typings/index.d.ts",
   "publishConfig": {
