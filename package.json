@@ -6,7 +6,8 @@
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "files": [
-    "*"
+    "dist/**/*",
+    "typings/**/*"
   ],
   "keywords": [
     "react",
@@ -110,14 +111,15 @@
     "watch": "^1.0.2"
   },
   "peerDependencies": {
+    "prop-types": "^15.6.2",
     "react": "15.x || 16.x || 17.x || 18.x || 19.x",
-    "react-dom": "15.x || 16.x || 17.x || 18.x || 19.x",
-    "prop-types": "^15.6.2"
+    "react-dom": "15.x || 16.x || 17.x || 18.x || 19.x"
   },
   "dependencies": {
     "deep-freeze": "0.0.1",
     "deepmerge": "^4.3.1",
-    "equals": "^1.0.5"
+    "equals": "^1.0.5",
+    "npm": "^9.9.4"
   },
   "jest": {
     "moduleNameMapper": {
